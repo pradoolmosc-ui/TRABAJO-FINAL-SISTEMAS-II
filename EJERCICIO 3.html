@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 3 - Metrive Salto</title>
+    <link rel="stylesheet" href="STYLE.css">
+</head>
+<body>
+
+    
+    <header class="barra-navegacion">
+        <a href="TP INTEGRADOR.html" class="btn-volver">⬅ Volver al Menú Principal</a>
+        <div class="enlaces-rapidos">
+            <a href="EJERCICIO 1.html">Módulo 1</a> | 
+            <a href="EJERCICIO 2.html">Módulo 2</a> | 
+            <a href="EJERCICIO 3.html">Módulo 3</a>
+        </div>
+    </header>
+
+    <main>
+   
+        <section class="seccion-metrive">
+            <h2>Panel de Indicadores Operativos (KPIs) - Planta Salto</h2>
+            <p class="instruccion-tabla">💡 <em>Haz clic en cualquier indicador para ver el reporte detallado del turno.</em></p>
+            
+            <div class="kpi-container">
+                <div class="kpi-card" onclick="mostrarDetalleKPI('envios')">
+                    <h3>Envíos Despachados</h3>
+                    <p>1,240</p>
+                    <span class="kpi-detalle-txt">Ver reporte diario 📊</span>
+                </div>
+                <div class="kpi-card" onclick="mostrarDetalleKPI('tiempo')">
+                    <h3>Tiempo Promedio de Carga</h3>
+                    <p>42 min</p>
+                    <span class="kpi-detalle-txt">Ver eficiencia en playa ⏱️</span>
+                </div>
+                <div class="kpi-card" onclick="mostrarDetalleKPI('ocupacion')">
+                    <h3>Ocupación de Depósito</h3>
+                    <p>88%</p>
+                    <span class="kpi-detalle-txt">Ver mapa de racks 📦</span>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="seccion-metrive">
+            <h2>Portafolio de Servicios Logísticos (3PL) - Metrive S.A.</h2>
+            <p class="instruccion-tabla">Soluciones integrales diseñadas para optimizar la cadena de suministro industrial desde nuestra planta en Salto (Bs. As.).</p>
+            
+            <div class="grid-servicios">
+                <div class="servicio-card">
+                    <div class="icono-servicio">🚚</div>
+                    <h3>1. Transporte y Distribución FTL / LTL</h3>
+                    <p>Gestión integral de cargas consolidadas y camiones completos de gran porte. Conectamos la planta de Salto con centros de distribución y obras en todo el país bajo estrictos estándares de seguridad vial.</p>
+                </div>
+                
+                <div class="servicio-card">
+                    <div class="icono-servicio">🏭</div>
+                    <h3>2. Almacenaje y Gestión WMS</h3>
+                    <p>Infraestructura optimizada para el resguardo de perfiles metálicos, chapas e insumos siderúrgicos. Control absoluto de inventario mediante trazabilidad por SKU y lectura de códigos en tiempo real.</p>
+                </div>
+                
+                <div class="servicio-card">
+                    <div class="icono-servicio">⚙️</div>
+                    <h3>3. Logística de Mantenimiento y Flota</h3>
+                    <p>Soporte técnico preventivo y correctivo para unidades de transporte y autoelevadores. Aseguramos la continuidad operativa de los muelles de carga sin tiempos muertos en playa.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function mostrarDetalleKPI(tipo) {
+            if(tipo === 'envios') {
+                alert("📊 Reporte de Envíos: 1,240 despachos consolidados este mes desde la Planta Metrive Salto sin incidencias críticas.");
+            } else if(tipo === 'tiempo') {
+                alert("⏱️ Eficiencia en Playa: El tiempo promedio de carga en los docks es de 42 minutos, cumpliendo con la meta operativa.");
+            } else if(tipo === 'ocupacion') {
+                alert("📦 Estado de Depósito: Ocupación al 88%. El Galpón 1 y el Pañol Central operan con normalidad.");
+            }
+        }
+    </script>
+
+</body>
+</html>

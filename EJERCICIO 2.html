@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2 - Metrive Salto</title>
+    <link rel="stylesheet" href="STYLE.css">
+</head>
+<body>
+
+    <header class="barra-navegacion">
+        <a href="TP INTEGRADOR.html" class="btn-volver">⬅ Volver al Menú Principal</a>
+        <div class="enlaces-rapidos">
+            <a href="EJERCICIO 1.html">Módulo 1</a> | 
+            <a href="EJERCICIO 2.html">Módulo 2</a> | 
+            <a href="EJERCICIO 3.html">Módulo 3</a>
+        </div>
+    </header>
+
+    <main>
+      
+        <section class="seccion-metrive">
+            <div class="encabezado-tabla">
+                <h2>Control de Stock en Depósito - Metrive Salto</h2>
+            
+                <input type="text" id="inputBuscar" onkeyup="buscarProducto()" placeholder="🔍 Buscar por SKU o Producto...">
+            </div>
+            
+            <p class="instruccion-tabla">💡 <em>Haz clic en cualquier fila para cargar automáticamente el producto en la solicitud de despacho.</em></p>
+
+            <div class="contenedor-tabla-scroll">
+                <table class="tabla-inventario" id="tablaStock">
+                    <thead>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Producto</th>
+                            <th>Ubicación</th>
+                            <th>Stock</th>
+                            <th>Estado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr onclick="seleccionarProducto('MET-01', 'Perfil Acero C 100')">
+                            <td><strong>MET-01</strong></td>
+                            <td>Perfil Acero C 100</td>
+                            <td>Galpón 1 - Rack A1</td>
+                            <td>35</td>
+                            <td><span class="badge badge-normal">Normal</span></td>
+                        </tr>
+                        <tr class="stock-critico" onclick="seleccionarProducto('MET-02', 'Chapa Galvanizada N° 20')">
+                            <td><strong>MET-02</strong></td>
+                            <td>Chapa Galvanizada N° 20</td>
+                            <td>Galpón 1 - Rack B2</td>
+                            <td>5</td>
+                            <td><span class="badge badge-critico">Crítico</span></td>
+                        </tr>
+                        <tr onclick="seleccionarProducto('MET-03', 'Electrodos para Soldadura')">
+                            <td><strong>MET-03</strong></td>
+                            <td>Electrodos para Soldadura</td>
+                            <td>Pañol Central</td>
+                            <td>80</td>
+                            <td><span class="badge badge-normal">Normal</span></td>
+                        </tr>
+                        <tr onclick="seleccionarProducto('MET-04', 'Insumos Siderúrgicos')">
+                            <td><strong>MET-04</strong></td>
+                            <td>Insumos Siderúrgicos</td>
+                            <td>Galpón 2 - Rack C3</td>
+                            <td>12</td>
+                            <td><span class="badge badge-normal">Normal</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        
+        <section class="seccion-metrive">
+            <h2>Solicitud de Orden de Despacho</h2>
+            <form class="form-despacho" id="formDespacho">
+                <label for="remito">Número de Remito / Guía:</label>
+                <input type="text" id="remito" name="remito" placeholder="Ej: REM-MET-2026-001" required>
+
+                <label for="transporte">Tipo de Transporte:</label>
+                <select id="transporte" name="transporte">
+                    <option value="sider">Camión Sider / Lona</option>
+                    <option value="semi">Semirremolque</option>
+                    <option value="utilitario">Utilitario de Distribución</option>
+                </select>
+
+                <label for="peso">Peso Total (Kg):</label>
+                <input type="number" id="peso" name="peso" placeholder="Ej: 4500" required>
+
+                <label for="fecha">Fecha Estimada de Salida:</label>
+                <input type="date" id="fecha" name="fecha" required>
+
+                <div class="contenedor-botones">
+                    <button type="button" class="btn-aprobar" onclick="aprobarDespacho()">Aprobar Despacho</button>
+                    <button type="button" class="btn-detener" onclick="detenerCarga()">Detener Carga</button>
+                    <button type="button" class="btn-revisar" onclick="revisarDocumentacion()">Revisar Documentación</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+  
+    <script>
+     
+        function buscarProducto() {
+            const input = document.getElementById("inputBuscar");
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById("tablaStock");
+            const tr = table.getElementsByTagName("tr");
+
+            for (let i = 1; i < tr.length; i++) {
+                let tdSKU = tr[i].getElementsByTagName("td")[0];
+                let tdProducto = tr[i].getElementsByTagName("td")[1];
+                if (tdSKU || tdProducto) {
+                    let txtSKU = tdSKU.textContent || tdSKU.innerText;
+                    let txtProducto = tdProducto.textContent || tdProducto.innerText;
+                    if (txtSKU.toUpperCase().indexOf(filter) > -1 || txtProducto.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    
+        function seleccionarProducto(sku, producto) {
+            document.getElementById('remito').value = "REM-" + sku + "-2026";
+            alert("📋 Producto seleccionado: " + producto + " (" + sku + "). Remito generado automáticamente.");
+        }
+
+      
+        function aprobarDespacho() {
+            const remito = document.getElementById('remito').value;
+            if(remito === "") {
+                alert("⚠️ Por favor, ingrese o seleccione un número de remito antes de aprobar.");
+            } else {
+                alert("✅ ¡Despacho " + remito + " APROBADO con éxito en Planta Metrive Salto!");
+            }
+        }
+
+        function detenerCarga() {
+            const remito = document.getElementById('remito').value || "Actual";
+            alert("🛑 ¡ATENCIÓN! La carga del remito " + remito + " ha sido DETENIDA por supervisión.");
+        }
+
+        function revisarDocumentacion() {
+            alert("🔍 Documentación puesta en REVISIÓN por el área de logística.");
+        }
+    </script>
+
+</body>
+</html>
